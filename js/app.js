@@ -24,7 +24,12 @@ let sections = document.querySelectorAll("section");
 
 /* Begin Events*/
 // Scroll to section on link click
-
+scrollToSection = (item, sectionId) => {
+  item.addEventListener("click", (event) => {
+    event.preventDefault();
+    document.querySelector(sectionId).scrollIntoView({ behavior: "smooth" });
+  });
+};
 // Build menu
 buildMenu = () => {
   let documentFragment = document.createDocumentFragment();
@@ -34,6 +39,9 @@ buildMenu = () => {
       section.id
     }" class="menu__link">  ${section.getAttribute("data-nav")} </a>
     `;
+    // Scroll to anchor ID
+    let sectionId = `#${section.id}`;
+    scrollToSection(item, sectionId);
     documentFragment.appendChild(item);
   }
   navbar.appendChild(documentFragment);
