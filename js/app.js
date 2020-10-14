@@ -19,15 +19,9 @@ let sections = document.querySelectorAll("section");
 /* End Global Variables*/
 
 /* Start Helper Functions */
-let inViewPort = (element) => {
+let nearViewPort = (element) => {
   const dist = element.getBoundingClientRect();
-  return (
-    dist.top >= 0 &&
-    dist.left >= 0 &&
-    dist.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    dist.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
+  return dist.top >= 0;
 };
 
 /* End Helper Functions */
@@ -69,7 +63,7 @@ document.addEventListener("load", buildMenu());
 // Add class 'active' to section when near top of viewport
 document.addEventListener("scroll", () => {
   for (section of sections) {
-    if (inViewPort(section)) {
+    if (nearViewPort(section)) {
       section.classList.add("your-active-class");
     } else {
       section.classList.remove("your-active-class");
