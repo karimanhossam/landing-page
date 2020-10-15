@@ -16,6 +16,7 @@
 /*Define Global Variables*/
 let navbar = document.querySelector("#navbar__list");
 let sections = document.querySelectorAll("section");
+const button = document.querySelector("#topBtn");
 /* End Global Variables*/
 
 /* Start Helper Functions */
@@ -31,12 +32,15 @@ let nearViewPort = (element) => {
 scrollToSection = (item, sectionId) => {
   item.addEventListener("click", (event) => {
     event.preventDefault();
-    document.querySelector(sectionId).scrollIntoView({ behavior: "smooth" });
+    document.querySelector(sectionId).scrollIntoView();
   });
 };
 // Build menu
 buildMenu = () => {
   let documentFragment = document.createDocumentFragment();
+  navbar.style.display = "block";
+  clearInterval();
+
   for (section of sections) {
     let item = document.createElement("li");
     item.innerHTML = `<a href=" #${
@@ -51,8 +55,6 @@ buildMenu = () => {
   navbar.appendChild(documentFragment);
 };
 
-// Set sections as active
-
 /* End Events */
 
 /* Begin Main Functions */
@@ -62,6 +64,8 @@ document.addEventListener("load", buildMenu());
 
 // Add class 'active' to section when near top of viewport
 document.addEventListener("scroll", () => {
+  navbar.style.display = "block";
+  clearInterval();
   for (section of sections) {
     if (nearViewPort(section)) {
       section.classList.add("your-active-class");
@@ -69,6 +73,19 @@ document.addEventListener("scroll", () => {
       section.classList.remove("your-active-class");
     }
   }
+  // Show go to top button when the user scrolls below the fold of the page
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight)
+    button.style.display = "block";
+  else button.style.display = "none";
+});
+//Hide the nav
+setInterval(() => {
+  navbar.style.display = "none";
+}, 15000);
+
+// Go to Top
+button.addEventListener("click", () => {
+  window.scrollTo(0, 0);
 });
 
 /* End Main Functions */
