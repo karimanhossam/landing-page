@@ -47,6 +47,21 @@ deactivateNavItems = (sectionId) => {
     }
   }
 };
+toggleSection = (sectionId, num) => {
+  let sectionContent = document.querySelector(`#content-${sectionId}`);
+  let arrow = document.querySelector(`#${sectionId} .arrow`);
+  if (sectionContent.style.display == "none") {
+    sectionContent.style.display = "block";
+    arrow.innerHTML = "&#8595;";
+  } else {
+    sectionContent.style.display = "none";
+    if (num == 0) {
+      arrow.innerHTML = "&#8592;";
+    } else {
+      arrow.innerHTML = "&#8594;";
+    }
+  }
+};
 /* End Helper Functions */
 
 /* Begin Events*/
@@ -54,7 +69,7 @@ deactivateNavItems = (sectionId) => {
 scrollToSection = (item, sectionId) => {
   item.addEventListener("click", (event) => {
     event.preventDefault();
-    document.querySelector(sectionId).scrollIntoView();
+    document.querySelector(sectionId).scrollIntoView({ block: "center" });
   });
 };
 // Build menu
