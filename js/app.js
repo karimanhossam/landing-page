@@ -22,9 +22,31 @@ const button = document.querySelector("#topBtn");
 /* Start Helper Functions */
 let nearViewPort = (element) => {
   const dist = element.getBoundingClientRect();
-  return dist.top >= 0;
+  return (
+    dist.top >= 0 &&
+    dist.left >= 0 &&
+    dist.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    dist.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+};
+activateNavItem = (sectionId) => {
+  let navbarItems = document.querySelectorAll(".menu__link");
+  for (navbarItem of navbarItems) {
+    if (navbarItem.getAttribute("href") == `#${sectionId}`) {
+      navbarItem.classList.add("your-active-navitem");
+    }
+  }
 };
 
+deactivateNavItems = (sectionId) => {
+  let navbarItems = document.querySelectorAll(".menu__link");
+  for (navbarItem of navbarItems) {
+    if (navbarItem.getAttribute("href") == `#${sectionId}`) {
+      navbarItem.classList.remove("your-active-navitem");
+    }
+  }
+};
 /* End Helper Functions */
 
 /* Begin Events*/
@@ -43,7 +65,7 @@ buildMenu = () => {
 
   for (section of sections) {
     let item = document.createElement("li");
-    item.innerHTML = `<a href=" #${
+    item.innerHTML = `<a href="#${
       section.id
     }" class="menu__link">  ${section.getAttribute("data-nav")} </a>
     `;
@@ -69,8 +91,10 @@ document.addEventListener("scroll", () => {
   for (section of sections) {
     if (nearViewPort(section)) {
       section.classList.add("your-active-class");
+      activateNavItem(section.id);
     } else {
       section.classList.remove("your-active-class");
+      deactivateNavItems(section.id);
     }
   }
   // Show go to top button when the user scrolls below the fold of the page

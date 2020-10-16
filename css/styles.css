@@ -91,7 +91,11 @@ section {
   color: #fff;
   transition: ease 0.3s all;
 }
-
+.your-active-navitem {
+  background: rgb(0, 13, 60);
+  color: #fff !important;
+  transition: ease 0.3s all;
+}
 /* Header Styles */
 .page__header {
   background: #fff;
@@ -234,7 +238,7 @@ section.your-active-class {
   background: rgb(0, 0, 0);
   background: linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0.1) 0%,
+    rgb(148, 175, 209) 0%,
     rgba(0, 0, 0, 0) 100%
   );
 }
